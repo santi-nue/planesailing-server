@@ -151,6 +151,7 @@ public class Dump1090JSONReader extends Client {
                                     a.setAltitude(ac.getDouble("nav_altitude_mcp"));
                                     a.setOnGround(false);
                                 }
+                               } 
                            if (ac.has("vert_rate")) {
                                 a.setVerticalRate(ac.getDouble("vert_rate") / 60.0);                
                            } else if (ac.has("baro_rate")) {
