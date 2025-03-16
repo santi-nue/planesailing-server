@@ -126,6 +126,7 @@ public class Dump1090JSONReader extends Client {
                                 } else {
                                     a.setAltitude(ac.getDouble("altitude"));
                                     a.setOnGround(false);
+                                   } 
                           } else if (ac.has("alt_baro")) {
                                 if (ac.get("alt_baro") instanceof String && ac.getString("alt_baro").equals("ground")) {
                                     a.setAltitude(0.0);
