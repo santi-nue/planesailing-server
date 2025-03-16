@@ -118,7 +118,15 @@ public class Dump1090JSONReader extends Client {
                                     a.addPosition(ac.getDouble("lat"), ac.getDouble("lon"));
                                 }
                             }
-                            if (ac.has("alt_baro")) {
+
+                            if (ac.has("altitude")) {
+                                if (ac.get("altitude") instanceof String && ac.getString("altitude").equals("ground")) {
+                                    a.setAltitude(0.0);
+                                    a.setOnGround(true);
+                                } else {
+                                    a.setAltitude(ac.getDouble("altitude"));
+                                    a.setOnGround(false);
+                          } else if (ac.has("alt_baro")) {
                                 if (ac.get("alt_baro") instanceof String && ac.getString("alt_baro").equals("ground")) {
                                     a.setAltitude(0.0);
                                     a.setOnGround(true);
@@ -142,8 +150,9 @@ public class Dump1090JSONReader extends Client {
                                     a.setAltitude(ac.getDouble("nav_altitude_mcp"));
                                     a.setOnGround(false);
                                 }
-                            }
-                            if (ac.has("baro_rate")) {
+                           if (ac.has("vert_rate")) {
+                                a.setVerticalRate(ac.getDouble("vert_rate") / 60.0);                
+                           } else if (ac.has("baro_rate")) {
                                 a.setVerticalRate(ac.getDouble("baro_rate") / 60.0);
                             } else if (ac.has("geom_rate")) {
                                 a.setVerticalRate(ac.getDouble("geom_rate") / 60.0);
